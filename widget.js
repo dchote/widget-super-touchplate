@@ -1,8 +1,14 @@
 requirejs.config({
-  paths: {
-    Three: 'http://threejs.org/build/three.min.js',
-  }
+    paths: {
+        Three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three',
+    },
+    shim: {
+        Three: {
+            exports: 'THREE'
+        },
+    }
 });
+
 
 // Test this element. This code is auto-removed by the chilipeppr.load()
 cprequire_test(["inline:com-chilipeppr-widget-super-touchplate"], function(touchplate) {
@@ -72,6 +78,14 @@ cprequire_test(["inline:com-chilipeppr-widget-super-touchplate"], function(touch
       */
 
 } /*end_test*/ );
+
+// Bring THREE in to global scope
+cpdefine('Three', ['https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.js'], function ( THREE ) {
+    if (typeof window !== 'undefined') {
+        window.THREE = THREE;
+        return THREE;
+    }
+});
 
 cpdefine("inline:com-chilipeppr-widget-super-touchplate", ["chilipeppr_ready", 'Three'], function() {
   return {
